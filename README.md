@@ -2,11 +2,11 @@
 
 The Data Storage Unit Conversion API allows you to convert a number and data storage unit to the most convenient unit.
 
-## Base URL
+## Base URLs
 
-https://converter.cyclic.app
+https://converter.cyclic.app<br>
+https://converter.merkb.repl.co
 
-GET/
 
 
 ### Query Parameters
@@ -40,7 +40,7 @@ Example response:
 ```
 
 ### Usage example
-You can use tools like cURL or simply enter the URL in your web browser to make a GET request to the API.
+You can use tools like cURL or javascript to make a GET request to the API.
 
 #### cURL Example
 ```shell
@@ -66,4 +66,17 @@ fetch(apiUrl)
     console.error('Error:', error);
   });
 
-``
+```
+
+Using JQuery:
+```js
+const data = 2345.678;
+const unit = 'kilobytes';
+
+$.getJSON('https://converter.cyclic.app?data=' + data + '&unit=' + unit+ '',
+function (data) {
+        console.log()(data.contents);
+    });
+  });
+
+```
