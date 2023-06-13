@@ -4,24 +4,30 @@ The Data Storage Unit Conversion API allows you to convert a number and data sto
 
 ## Base URL
 
-- https://converter.cyclic.app/
+https://converter.cyclic.app
 
-### Request
+GET/
 
-Send a POST request to the `/convert` endpoint with the following parameters in the request body:
 
-| Parameter     | Type   | Description                                           |
-|---------------|--------|-------------------------------------------------------|
-| numberAndUnit | string | The number and data storage unit separated by a space. |
+### Query Parameters
 
-Example request body:
+The API accepts the following query parameters:
 
-```json
-{
-  "numberAndUnit": "2345.678 kilobytes"
-}
+| Parameter | Type   | Required | Default Value | Description                                |
+|-----------|--------|----------|---------------|--------------------------------------------|
+| data      | number | Yes      | N/A           | The number to be converted.                 |
+| unit      | string | No       | bytes         | The data storage unit (bytes, kilobytes, etc.). |
+
+### Request Example
+
+Example GET request:
+
 ```
-### Response
+GET https://converter.cyclic.app/?data=2345.678&unit=kilobytes
+```
+
+
+### Response Example
 
 The API will respond with a JSON object containing the converted value.
 
@@ -33,21 +39,31 @@ Example response:
 }
 ```
 
-### Usage Example
-
-You can use tools like cURL or Postman to send a request to the API.
-
+### Usage example
+You can use tools like cURL or simply enter the URL in your web browser to make a GET request to the API.
 
 #### cURL Example
-```curl
-curl -X POST -H "Content-Type: application/json" -d '{"numberAndUnit": "2345.678 kilobytes"}' https://converter.cyclic.app/
+```shell
+curl "https://converter.cyclic.app/?data=2345.678&unit=kilobytes"
 ```
 
+#### Javascript Example
+```js
+const data = 2345.678;
+const unit = 'kilobytes';
 
+// Construct the API URL with query parameters
+const apiUrl = `https://my-api.net/?data=${data}&unit=${unit}`;
 
-#### Postman Example
-- Open Postman.
-- Set the request method to POST.
-- Set the request URL to https://converter.cyclic.app/
-- Set the request body to JSON format and provide the numberAndUnit parameter.
-- Click on "Send" to send the request and view the response.
+// Make the GET request to the API
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    const result = data.result;
+    console.log(result); // Output: 2.345678 megabytes
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+``
