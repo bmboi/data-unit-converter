@@ -1,4 +1,13 @@
-function conv(numberAndUnit) {
+const express = require('express');
+
+const app = express();
+const port = 3000;
+
+// Convert data storage unit endpoint
+app.get('/', (req, res) => {
+  const data = parseFloat(req.query.data);
+  const unit = req.query.unit || 'bytes';
+
   // Define the data storage units and their respective values in bytes
   const units = {
     bytes: 1,
@@ -10,20 +19,20 @@ function conv(numberAndUnit) {
     exabytes: 1024 ** 6,
   };
 
-  const [number, unit] = numberAndUnit.split(' ');
-
-  const value = parseFloat(number);
-
-  if (isNaN(value)) {
-    return 'Invalid input. Please provide a valid number and unit separated by a space.';
+  // Check if the input is a valid number
+  if (isNaN(data)) {
+    return res.status(400).json({ error: 'Invalid input. Please provide a valid number.' });
   }
 
+  // Check if the input unit is valid
   if (!units.hasOwnProperty(unit)) {
-    return 'Invalid unit. Please provide a valid data storage unit.';
+    return res.status(400).json({ error: 'Invalid unit. Please provide a valid data storage unit.' });
   }
 
-  const bytes = value * units[unit];
+  // Convert the value to bytes
+  const bytes = data * units[unit];
 
+  // Find the most convenient unit
   let resultUnit = 'bytes';
   let resultValue = bytes;
 
@@ -36,18 +45,15 @@ function conv(numberAndUnit) {
     }
   }
 
-  const formattedValue = resultValue
+  // Format the result with up to 6 decimal places
+  const formattedValue = resultValue.toFixed(6);
 
-  return `${formattedValue} ${resultUnit}`;
-}
+  // Return the result in the format ###... UN
+  const result = `${formattedValue} ${resultUnit}`;
+  res.json({ result });
+});
 
-
-
-var http = require('http');
-http.createServer(function (req, res) {
-let params = new URL(window.location).searchParams;
-let out = params.value + ' ' +params.unit
-    console.log(`Just got a request at ${req.url}!`)
-    res.write(out);
-    res.end();
-}).listen(process.env.PORT || 3000);
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
