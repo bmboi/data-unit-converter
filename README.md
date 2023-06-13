@@ -68,14 +68,14 @@ fetch(apiUrl)
 
 ```
 
-Using JQuery:
+#### Using JQuery:
 ```js
 const data = 2345.678;
 const unit = 'kilobytes';
 
 $.getJSON('https://converter.cyclic.app?data=' + data + '&unit=' + unit+ '',
 function (data) {
-        console.log()(data.contents);
+        console.log(data.contents);
     });
   });
 
