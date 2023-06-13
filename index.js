@@ -10,26 +10,20 @@ function conv(numberAndUnit) {
     exabytes: 1024 ** 6,
   };
 
-  // Split the input into number and unit
   const [number, unit] = numberAndUnit.split(' ');
 
-  // Convert the number to a floating-point value
   const value = parseFloat(number);
 
-  // Check if the input is a valid number
   if (isNaN(value)) {
     return 'Invalid input. Please provide a valid number and unit separated by a space.';
   }
 
-  // Check if the input unit is valid
   if (!units.hasOwnProperty(unit)) {
     return 'Invalid unit. Please provide a valid data storage unit.';
   }
 
-  // Convert the value to bytes
   const bytes = value * units[unit];
 
-  // Find the most convenient unit
   let resultUnit = 'bytes';
   let resultValue = bytes;
 
@@ -42,10 +36,8 @@ function conv(numberAndUnit) {
     }
   }
 
-  // Format the result with up to 6 decimal places
-  const formattedValue = resultValue.toFixed(6);
+  const formattedValue = resultValue
 
-  // Return the result in the format ###... UN
   return `${formattedValue} ${resultUnit}`;
 }
 
