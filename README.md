@@ -53,7 +53,7 @@ const data = 2345.678;
 const unit = 'kilobytes';
 
 // Construct the API URL with query parameters
-const apiUrl = `https://my-api.net/?data=${data}&unit=${unit}`;
+const apiUrl = `https://converter.cyclic.app/?data=${data}&unit=${unit}`;
 
 // Make the GET request to the API
 fetch(apiUrl)
